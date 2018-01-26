@@ -1,0 +1,13 @@
+Bathroom
+Bedroom
+Kitchen
+Labyrinth
+Pool
+TrainingGround
+Library
+SecretCellar
+
+Torch
+Key
+Sedative
+Food

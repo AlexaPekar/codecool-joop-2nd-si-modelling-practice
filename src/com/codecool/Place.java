@@ -2,23 +2,15 @@ package com.codecool;
 
 public class Place extends Thing {
 
-    protected int scareFactor;
-    protected Tool[] foundTools;
-    protected Furniture[] furniture;
+    public Furniture[] furniture;
 
-    protected Place(String name, int scareFactor, Tool[] foundTools, Furniture[] furniture) {
+    public Place(String name, Furniture[] furniture) {
         super(name);
-        this.scareFactor = scareFactor;
-        this.foundTools = foundTools;
         this.furniture = furniture;
     }
 
-    public int getScareFactor() {
-        return scareFactor;
-    }
-
     public Furniture[] getFurniture() {
-        return tools;
+        return furniture;
     }
 
     public void addNewFurniture(Furniture newFurniture) {
@@ -31,5 +23,6 @@ public class Place extends Thing {
         tempArray[tempArray.length - 1] = newFurniture;
         furniture = tempArray;
     }
-}
+
+    //public void removeFurniture()
 }

@@ -4,7 +4,7 @@ public class Tool extends Thing {
 
     protected String functionality;
 
-    protected Tool(String name, String functionality) {
+    public Tool(String name, String functionality) {
         super(name);
         this.functionality = functionality;
     }

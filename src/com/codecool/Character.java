@@ -2,59 +2,17 @@ package com.codecool;
 
 public class Character extends Thing {
     
-    protected Gender gender;
-    protected int bravery;
-    protected int stamina;
-    protected int energy;
-    protected Tool[] tools;
+    public int energy;
+    public int strength;
 
-    protected Character(String name, Gender gender, int bravery, int stamina, int energy, Tool[] tools) {
+    public Character(String name, int energy, int strength) {
         super(name);
-        this.gender = gender;
-        this.bravery = bravery;
-        this.stamina = stamina;
         this.energy = energy;
-        this.tools = tools;
+        this.strength = strength;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public int getBravery() {
-        return bravery;
-    }
-
-    public void setBravery(int value) {
-        bravery += value;
-        if (bravery > 100) {
-            bravery = 100;
-        }
-        else if (bravery <= 0) {
-            System.out.println("Your character is too scared, cannot escape this way, must stay in the castle forever!");
-            System.exit(0);
-        }
-        System.out.println("Bravery changed by " + value + "!");
-    }
-
-    public int getStamina() {
-        return stamina;
-    }
-
-    public void setStamina(int value) {
-        stamina += value;
-        if (stamina > 100) {
-            stamina = 100;
-        }
-        else if (stamina <= 0) {
-            System.out.println("Your character is too weak, cannot escape this way, must stay in the castle forever!");
-            System.exit(0);
-        }
-        System.out.println("Stamina changed by " + value + "!");
     }
 
     public int getEnergy() {
@@ -73,6 +31,19 @@ public class Character extends Thing {
         System.out.println("Energy changed by " + value + "!");
     }
 
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrengthI(int value) {
+        strength += value;
+        System.out.println("Strength changed by " + value + "!");
+    }
+
+//    public Tool getTool() {
+//        return tool;
+//    }
+/*
     public Tool[] getTools() {
         return tools;
     }
@@ -87,4 +58,5 @@ public class Character extends Thing {
         tempTools[tempTools.length - 1] = tool;
         tools = tempTools;
     }
+*/
 }
