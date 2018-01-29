@@ -1,12 +1,11 @@
 package com.codecool;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.FileNotFoundException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Castle {
@@ -14,67 +13,73 @@ public class Castle {
     public String name;
     public Character[] characters;
     public Place[] places;
+    public Character activeCharacter;
 
-    public Castle(String name, Character[] characters) {
+    public Castle(String name, Place[] places) {
         this.name = name;
-        this.characters = characters;
+        this.characters = new Character[0];
+        this.places = places;
     }
 
-    public Castle(String name, String charactersPath) throws FileNotFoundException {
-        this.name = name;
-        this.characters = readCharacterFromFile(charactersPath);
+    public static Castle createNewCastle() {
+        Place[] places = new Place[6];
+        places[0] = Place.createKitchen();
+        places[1] = Place.createBedroom();
+        places[2] = Place.createBathroom();
+        places[3] = Place.createLibrary();
+        places[4] = Place.createLivingroom();
+        places[5] = Place.createTrainingGround();
+        return new Castle("Croft Manor", places);
     }
 
-    static Castle createNewCastle() throws FileNotFoundException {
-        return new Castle("Croft Manor", "../data/characters.csv");
+    public void setActiveCharacter(Character character) {
+        activeCharacter = character;
     }
 
-    public Character[] getCharacters(){
+    public Character[] getCharacters() {
         return characters;
     }
 
-    public int lineCounter(String csvPath) {
-        int cnt = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(csvPath))) {
-            while ((reader.readLine()) != null) {
-                cnt++;
-            }
-            reader.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+    public Place[] getPlaces() {
+        return places;
+    }
+
+    public void deserializeCharacters() {
+        try {
+            FileInputStream fileIn = new FileInputStream("../data/characters.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            characters = (Character[]) in.readObject();
+            in.close();
+            fileIn.close();
+
+        } catch (IOException i) {
+            i.printStackTrace();
+
+        } catch (ClassNotFoundException c) {
+            System.out.println("Character class not found");
+            c.printStackTrace();
+
         }
-        return cnt;
     }
 
-    public Character[] readCharacterFromFile(String csvPath) throws FileNotFoundException {
-        int numOFLines = lineCounter(csvPath);
-        int lineNumber = 0;
-        String line = "";
-        Character[] characters = new Character[numOFLines];
-        try (BufferedReader characterReader = new BufferedReader(new FileReader(csvPath))) {
-            while ((line = characterReader.readLine()) != null) {
-                String[] attributes = line.split(",");
-                characters[lineNumber] = createCharacter(attributes);
-                lineNumber++;
-            }
-            characterReader.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+    public void serializeCharacters(Character[] characters) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("../data/characters.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(characters);
+            out.close();
+            fileOut.close();
+            System.out.println("Serialized data is saved in characters.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
         }
-        return characters;
     }
 
-    public Character createCharacter(String[] attributes) {
-        Character character;
-        character = new Character(attributes[0], Integer.parseInt(attributes[1]), Integer.parseInt(attributes[2]));
-        return character;
+    public void createCharacter(String name, int energy, int strength, Furniture[] stocks) {
+        addToCharacters(new Character(name, 100, 0, new Furniture[0]));
     }
 
-    public Character createCharacter(String name, int energy, int strength) {
-        return new Character(name, 100, 0);
-    }
-
-    public void addToCharacters(Character character) {
+    private void addToCharacters(Character character) {
         Character[] tempArray = new Character[characters.length + 1];
         for (int i = 0; i < characters.length; i++) {
             tempArray[i] = characters[i];
@@ -94,40 +99,38 @@ public class Castle {
 
     public void quit() {
         System.out.println("See you again!");
+        serializeCharacters(characters);
     }
 
+    public void deserializePlaces() {
+        try {
+            FileInputStream fileIn = new FileInputStream("../data/places.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            characters = (Character[]) in.readObject();
+            in.close();
+            fileIn.close();
 
-    public void writeCharacterToFile() {
-        String[] attributes = null;
-        try{
-            BufferedWriter bw = new BufferedWriter(new FileWriter("../data/characters.csv"));
-            StringBuilder sb = new StringBuilder();
-            for (Character character : characters) {
-                int counter = 0;
-                attributes = recompressCharacter(character);
-                for (String att : attributes) {
-                    sb.append(att);
-                    counter++;
-                    if (counter != 10){
-                        sb.append(",");
-                    }
-                }
-                sb.append("\n");
-            }
-            String mystr = sb.toString();
-            mystr = mystr.substring(0, mystr.length()-1);
-            bw.write (mystr);
-            bw.close();
-            }catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
+        } catch (IOException i) {
+            i.printStackTrace();
+
+        } catch (ClassNotFoundException c) {
+            System.out.println("Place class not found");
+            c.printStackTrace();
+
+        }
     }
-    
-    public String[] recompressCharacter(Character character) {
-        String attributes[] = new String[3];
-        attributes[0] = character.getName();
-        attributes[1] = Integer.toString(character.getEnergy());
-        attributes[2] = Integer.toString(character.getStrength());
-        return attributes;
+/*
+    public void serializeCharacters(Character[] characters) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("../data/characters.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(characters);
+            out.close();
+            fileOut.close();
+            System.out.println("Serialized data is saved in characters.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
     }
+*/
 }
