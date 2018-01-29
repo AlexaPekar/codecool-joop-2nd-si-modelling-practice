@@ -6,10 +6,11 @@ public class Character extends Thing {
     public int strength;
     public Furniture[] stocks;
 
-    public Character(String name, int energy, int strength) {
+    public Character(String name, int energy, int strength, Furniture[] stocks) {
         super(name);
         this.energy = energy;
         this.strength = strength;
+        this.stocks = stocks;
     }
 
     public String getName() {
@@ -36,33 +37,42 @@ public class Character extends Thing {
         return strength;
     }
 
-    public void setStrengthI(int value) {
+    public void setStrength(int value) {
         strength += value;
         System.out.println("Strength changed by " + value + "!");
     }
 
-    public void addNewFurniture(Furniture[] stocks, Furniture newFurniture) {
-        Furniture[] tempArray = new Furniture[furniture.length + 1];
+    public Furniture[] getStocks() {
+        return stocks;
+    }
+
+    public void addNewStock(Furniture newFurniture) {
+        Furniture[] tempArray = new Furniture[stocks.length + 1];
         int counter = 0;
-        for(Furniture actualFurniture : furniture) {
-            tempArray[counter] = actualFurniture;
+        for(Furniture actualStock : stocks) {
+            tempArray[counter] = actualStock;
             counter++;
         }
         tempArray[tempArray.length - 1] = newFurniture;
-        furniture = tempArray;
+        stocks = tempArray;
     }
 
-    public void removeFurniture(Furniture[] furniture, int index){
-        Furniture[] tempArray = new Furniture[furniture.length - 1];
+    public Furniture removeStock(int index){
+        Furniture[] tempArray = new Furniture[stocks.length - 1];
         int indexNum = 0;
+        Furniture myFurniture = null;
         for (int i = 0; i < tempArray.length; i++) {
             if (index == i) {
                 indexNum = 1;
+                myFurniture = tempArray[i];
             }
-            tempArray[i - indexNum] = furniture[i];
+            tempArray[i - indexNum] = stocks[i];
         }
-        furniture = tempArray;
+        stocks = tempArray;
+        return myFurniture;
     }
+
+
 
 //    public Tool getTool() {
 //        return tool;
