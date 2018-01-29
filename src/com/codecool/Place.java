@@ -13,7 +13,7 @@ public class Place extends Thing {
         return furniture;
     }
 
-    public void addNewFurniture(Furniture newFurniture) {
+    public void addNewFurniture(Furniture[] furniture, Furniture newFurniture) {
         Furniture[] tempArray = new Furniture[furniture.length + 1];
         int counter = 0;
         for(Furniture actualFurniture : furniture) {
@@ -24,5 +24,15 @@ public class Place extends Thing {
         furniture = tempArray;
     }
 
-    //public void removeFurniture()
+    public void removeFurniture(Furniture[] furniture, int index){
+        Furniture[] tempArray = new Furniture[furniture.length - 1];
+        int indexNum = 0;
+        for (int i = 0; i < tempArray.length; i++) {
+            if (index == i) {
+                indexNum = 1;
+            }
+            tempArray[i - indexNum] = furniture[i];
+        }
+        furniture = tempArray;
+    }
 }

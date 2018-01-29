@@ -125,7 +125,7 @@ public class Castle {
     
     public String[] recompressCharacter(Character character) {
         String attributes[] = new String[3];
-        attributes[0] = student.getName();
+        attributes[0] = character.getName();
         attributes[1] = Integer.toString(character.getEnergy());
         attributes[2] = Integer.toString(character.getStrength());
         return attributes;

@@ -1,0 +1,7 @@
+package com.codecool;
+
+public enum Location {
+
+    BEDROOM, BATHROOM, KITCHEN, LABYRINTH, POOL, TRAININGGROUND, LIBRARY, SECRETCELLAR, HALL, LIVINGROOM
+    
+}
