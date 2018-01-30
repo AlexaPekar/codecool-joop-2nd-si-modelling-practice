@@ -73,7 +73,15 @@ public class Place extends Thing {
         return furniture;
     }
 
-    public static void addNewFurniture(Furniture[] furniture, Furniture newFurniture) {
+    public void printFurniture() {
+        int counter = 0;
+        for (Furniture furni : furniture) {
+            System.out.print("[" + counter + "]" + furni.getName() + "(" + furni.getWeight() + "kg)  ");
+            counter++;
+        }
+    }
+
+    public Furniture[] addNewFurniture(Furniture[] furniture, Furniture newFurniture) {
         Furniture[] tempArray = new Furniture[furniture.length + 1];
         int counter = 0;
         for(Furniture actualFurniture : furniture) {
@@ -81,21 +89,26 @@ public class Place extends Thing {
             counter++;
         }
         tempArray[tempArray.length - 1] = newFurniture;
-        furniture = tempArray;
+        return tempArray;
     }
 
-    public static Furniture removeFurniture(Furniture[] furniture, int index){
+    public Furniture getFurniture(Furniture[] furniture, int index) {
+        return furniture[index];
+    }
+
+    public void setFurniture(Furniture[] furniture) {
+        this.furniture = furniture;
+    }
+
+    public Furniture[] removeFurniture(Furniture[] furniture, int index){
         Furniture[] tempArray = new Furniture[furniture.length - 1];
         int indexNum = 0;
-        Furniture myFurniture = null;
         for (int i = 0; i < tempArray.length; i++) {
             if (index == i) {
                 indexNum = 1;
-                myFurniture = tempArray[i];
             }
-            tempArray[i - indexNum] = furniture[i];
+            tempArray[i] = furniture[i + indexNum];
         }
-        furniture = tempArray;
-        return myFurniture;
+        return tempArray;
     }
 }
