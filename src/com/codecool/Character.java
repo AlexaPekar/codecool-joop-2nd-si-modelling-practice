@@ -27,7 +27,7 @@ public class Character extends Thing {
             energy = 100;
         }
         else if (energy <= 0) {
-            System.out.println("Your character is too tired, cannot escape this way, must stay in the castle forever!");
+            System.out.println("Your character is too tired, cannot place the items to the right place, must stay in the castle forever!");
             System.exit(0);
         }
         System.out.println("Energy changed by " + value + "!");
@@ -39,11 +39,26 @@ public class Character extends Thing {
 
     public void setStrength(int value) {
         strength += value;
+        if (strength > 100) {
+            strength = 100;
+        }
+        else if (strength <= 0) {
+            System.out.println("Your character is too weak, cannot place the items to the right place, must stay in the castle forever!");
+            System.exit(0);
+        }
         System.out.println("Strength changed by " + value + "!");
     }
 
     public Furniture[] getStocks() {
         return stocks;
+    }
+
+    public void printStocks() {
+        int counter = 0;
+        for (Furniture stock : stocks) {
+            System.out.print("[" + counter + "]" +stock.getName() + "(" + stock.getWeight() + "kg)  ");
+            counter++;
+        }
     }
 
     public void addNewStock(Furniture newFurniture) {
@@ -57,40 +72,23 @@ public class Character extends Thing {
         stocks = tempArray;
     }
 
-    public Furniture removeStock(int index){
+    public Furniture getStock(Furniture[] furniture, int index) {
+        return furniture[index];
+    }
+
+    public void setStocks(Furniture[] furniture) {
+        this.stocks = furniture;
+    }
+
+    public Furniture[] removeStock(int index){
         Furniture[] tempArray = new Furniture[stocks.length - 1];
         int indexNum = 0;
-        Furniture myFurniture = null;
         for (int i = 0; i < tempArray.length; i++) {
             if (index == i) {
                 indexNum = 1;
-                myFurniture = tempArray[i];
             }
-            tempArray[i - indexNum] = stocks[i];
+            tempArray[i] = stocks[i + indexNum];
         }
-        stocks = tempArray;
-        return myFurniture;
+        return tempArray;
     }
-
-
-
-//    public Tool getTool() {
-//        return tool;
-//    }
-/*
-    public Tool[] getTools() {
-        return tools;
-    }
-
-    public void addNewTool(Tool tool) {
-        Tool[] tempTools = new Tool[tools.length + 1];
-        int counter = 0;
-        for(Tool actualTool : tools) {
-            tempTools[counter] = actualTool;
-            counter++;
-        }
-        tempTools[tempTools.length - 1] = tool;
-        tools = tempTools;
-    }
-*/
 }
