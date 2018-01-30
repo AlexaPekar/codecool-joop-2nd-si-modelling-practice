@@ -14,6 +14,7 @@ public class Castle {
     public Character[] characters;
     public Place[] places;
     public Character activeCharacter;
+    public boolean winning;
 
     public Castle(String name, Place[] places) {
         this.name = name;
@@ -42,6 +43,14 @@ public class Castle {
 
     public Place[] getPlaces() {
         return places;
+    }
+
+    public void printPlaces() {
+        int counter = 0;
+        for (Place place : places) {
+            System.out.println("\t[" + counter + "] " + place.getName());
+            counter++;
+        }
     }
 
     public void deserializeCharacters() {
@@ -76,7 +85,7 @@ public class Castle {
     }
 
     public void createCharacter(String name, int energy, int strength, Furniture[] stocks) {
-        addToCharacters(new Character(name, 100, 0, new Furniture[0]));
+        addToCharacters(new Character(name, 100, 100, new Furniture[0]));
     }
 
     private void addToCharacters(Character character) {
@@ -98,15 +107,17 @@ public class Castle {
     }
 
     public void quit() {
+        if (winning == true) {
+            System.out.println("Congrats, everything in place, you're the freakin' WINNER!");
+        }
         System.out.println("See you again!");
-        serializeCharacters(characters);
     }
 
     public void deserializePlaces() {
         try {
             FileInputStream fileIn = new FileInputStream("../data/places.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            characters = (Character[]) in.readObject();
+            places = (Place[]) in.readObject();
             in.close();
             fileIn.close();
 
@@ -119,18 +130,99 @@ public class Castle {
 
         }
     }
-/*
-    public void serializeCharacters(Character[] characters) {
+
+    public void serializePlaces(Place[] places) {
         try {
-            FileOutputStream fileOut = new FileOutputStream("../data/characters.ser");
+            FileOutputStream fileOut = new FileOutputStream("../data/places.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(characters);
+            out.writeObject(places);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in characters.ser");
+            System.out.println("Serialized data is saved in places.ser");
         } catch (IOException i) {
             i.printStackTrace();
         }
     }
-*/
+
+    public boolean contains(String[] items, String item) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void checkWinning() {
+        int counter = 0;
+        int fakeCounter = 0;
+        String[] idealKitchenFurni = {"table", "chair", "cooker", "fridge"};
+        String[] idealBedroomFurni = {"bed", "bedside cabinet", "night light", "wardrobe"};
+        String[] idealBathroomFurni = {"toilet", "sink", "mirror", "tub"};
+        String[] idealLibraryFurni = {"bookshelf", "desk", "table lamp", "armchair"};
+        String[] idealLivingroomFurni = {"sofa", "fireplace", "piano", "coffe table"};
+        String[] idealTrainingFurni = {"rope", "treadmill", "stationary bike", "wall bars"};
+
+        Furniture[] kitchenFurniture = places[0].getFurniture();
+        for (Furniture furni : kitchenFurniture) {
+            if (contains(idealKitchenFurni, furni.getName())) {
+                fakeCounter = 0;
+            } else {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+        Furniture[] bedroomFurniture = places[1].getFurniture();
+        for (Furniture furni : bedroomFurniture) {
+            if (contains(idealBedroomFurni, furni.getName())) {
+                fakeCounter = 0;
+            } else {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+        Furniture[] bathroomFurniture = places[2].getFurniture();
+        for (Furniture furni : bathroomFurniture) {
+            if (contains(idealBathroomFurni, furni.getName())) {
+                fakeCounter = 0;
+            } else {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+        Furniture[] libraryFurniture = places[3].getFurniture();
+        for (Furniture furni : libraryFurniture) {
+            if (contains(idealLibraryFurni, furni.getName())) {
+                fakeCounter = 0;
+            } else {
+                counter++;
+            }
+            System.out.println(counter);
+        }
+        
+        Furniture[] livingroomFurniture = places[4].getFurniture();
+        for (Furniture furni : livingroomFurniture) {
+            if (contains(idealLivingroomFurni, furni.getName())) {
+                fakeCounter = 0;
+            } else {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+        Furniture[] trainingFurniture = places[5].getFurniture();
+        for (Furniture furni : trainingFurniture) {
+            if (contains(idealTrainingFurni, furni.getName())) {
+                fakeCounter = 0;
+            } else {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+        if (counter != 0) {
+            winning = false;
+        } else {
+            winning = true;
+        }
+        System.out.println(counter);
+    }
 }
