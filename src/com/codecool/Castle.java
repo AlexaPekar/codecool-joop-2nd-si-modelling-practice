@@ -65,7 +65,7 @@ public class Castle {
             i.printStackTrace();
 
         } catch (ClassNotFoundException c) {
-            System.out.println("Character class not found");
+            System.out.println("\n\tCharacter class not found!");
             c.printStackTrace();
 
         }
@@ -78,7 +78,7 @@ public class Castle {
             out.writeObject(characters);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in characters.ser");
+            System.out.println("\tSerialized data of the character is saved in characters.ser.");
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -108,9 +108,10 @@ public class Castle {
 
     public void quit() {
         if (winning == true) {
-            System.out.println("Congrats, everything in place, you're the freakin' WINNER!");
+            System.out.println("\tCongrats, everything is in place, you're the freakin' WINNER!");
         }
-        System.out.println("See you again!");
+        System.out.println("\n\n\tSee you again!");
+        System.exit(0);
     }
 
     public void deserializePlaces() {
@@ -125,7 +126,7 @@ public class Castle {
             i.printStackTrace();
 
         } catch (ClassNotFoundException c) {
-            System.out.println("Place class not found");
+            System.out.println("\tPlace class not found!");
             c.printStackTrace();
 
         }
@@ -138,7 +139,7 @@ public class Castle {
             out.writeObject(places);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in places.ser");
+            System.out.println("\tSerialized data of the place is saved in places.ser.");
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -171,7 +172,6 @@ public class Castle {
                 counter++;
             }
         }
-        System.out.println(counter);
         Furniture[] bedroomFurniture = places[1].getFurniture();
         for (Furniture furni : bedroomFurniture) {
             if (contains(idealBedroomFurni, furni.getName())) {
@@ -180,7 +180,6 @@ public class Castle {
                 counter++;
             }
         }
-        System.out.println(counter);
         Furniture[] bathroomFurniture = places[2].getFurniture();
         for (Furniture furni : bathroomFurniture) {
             if (contains(idealBathroomFurni, furni.getName())) {
@@ -189,7 +188,6 @@ public class Castle {
                 counter++;
             }
         }
-        System.out.println(counter);
         Furniture[] libraryFurniture = places[3].getFurniture();
         for (Furniture furni : libraryFurniture) {
             if (contains(idealLibraryFurni, furni.getName())) {
@@ -197,9 +195,7 @@ public class Castle {
             } else {
                 counter++;
             }
-            System.out.println(counter);
         }
-        
         Furniture[] livingroomFurniture = places[4].getFurniture();
         for (Furniture furni : livingroomFurniture) {
             if (contains(idealLivingroomFurni, furni.getName())) {
@@ -208,7 +204,6 @@ public class Castle {
                 counter++;
             }
         }
-        System.out.println(counter);
         Furniture[] trainingFurniture = places[5].getFurniture();
         for (Furniture furni : trainingFurniture) {
             if (contains(idealTrainingFurni, furni.getName())) {
@@ -217,12 +212,10 @@ public class Castle {
                 counter++;
             }
         }
-        System.out.println(counter);
         if (counter != 0) {
             winning = false;
         } else {
             winning = true;
         }
-        System.out.println(counter);
     }
 }
