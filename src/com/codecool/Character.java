@@ -27,10 +27,10 @@ public class Character extends Thing {
             energy = 100;
         }
         else if (energy <= 0) {
-            System.out.println("Your character is too tired, cannot place the items to the right place, must stay in the castle forever!");
+            System.out.println("\n\tYour character is too tired, cannot place the items to the right place, must stay in the castle forever!");
             System.exit(0);
         }
-        System.out.println("Energy changed by " + value + "!");
+        System.out.println("\n\tEnergy changed by " + value + "!");
     }
 
     public int getStrength() {
@@ -43,10 +43,10 @@ public class Character extends Thing {
             strength = 100;
         }
         else if (strength <= 0) {
-            System.out.println("Your character is too weak, cannot place the items to the right place, must stay in the castle forever!");
+            System.out.println("\n\tYour character is too weak, cannot place the items to the right place, must stay in the castle forever!");
             System.exit(0);
         }
-        System.out.println("Strength changed by " + value + "!");
+        System.out.println("\tStrength changed by " + value + "!\n");
     }
 
     public Furniture[] getStocks() {
