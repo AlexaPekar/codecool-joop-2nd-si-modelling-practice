@@ -1,13 +1,16 @@
 package com.codecool;
 
 public class Character extends Thing {
-    
+
+    public Gender gender;
     public int energy;
     public int strength;
     public Furniture[] stocks;
 
-    public Character(String name, int energy, int strength, Furniture[] stocks) {
+
+    public Character(String name, Gender gender, int energy, int strength, Furniture[] stocks) {
         super(name);
+        this.gender = gender;
         this.energy = energy;
         this.strength = strength;
         this.stocks = stocks;
@@ -15,6 +18,10 @@ public class Character extends Thing {
 
     public String getName() {
         return name;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     public int getEnergy() {

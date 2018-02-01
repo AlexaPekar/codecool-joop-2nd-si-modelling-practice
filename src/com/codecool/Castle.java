@@ -84,8 +84,19 @@ public class Castle {
         }
     }
 
-    public void createCharacter(String name, int energy, int strength, Furniture[] stocks) {
-        addToCharacters(new Character(name, 100, 100, new Furniture[0]));
+    public void createCharacter(String name, Gender gender, int energy, int strength, Furniture[] stocks) {
+        Character character;
+        switch (gender) {
+            case MAN:
+                character = new Character(name, gender, 80, 100, new Furniture[0]);
+                break;
+            case WOMAN:
+                character = new Character(name, gender, 100, 80, new Furniture[0]);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+        addToCharacters(character);
     }
 
     private void addToCharacters(Character character) {

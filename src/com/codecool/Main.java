@@ -63,7 +63,7 @@ public class Main {
             System.out.println("\t(5) List places");
             System.out.println("\t(6) Pick up furniture(energy:-20|strength:-weight)");
             System.out.println("\t(7) Put down furniture(strength:+weight)");
-            System.out.println("\t(8) Heal character(energy:+50)");            
+            System.out.println("\t(8) Heal character(energy:+30)");            
             System.out.println("\t(0) Exit");
             System.out.println("\n\tPlease, choose an option!");
             System.out.print("\t");
@@ -191,12 +191,22 @@ public class Main {
     }
 
     private static void handleCreate(Castle newCastle) {
+        Gender gender;
         System.out.println("\n\n\tPlease, enter the name of the character!");
         System.out.print("\t");
         String name = scanner.nextLine();
+        System.out.println("\n\n\tPlease, enter the gender of the character!(MAN/WOMAN)");
+        System.out.print("\t");
+        String genderAsString = scanner.nextLine();
+        try {
+            gender = Gender.valueOf(genderAsString);
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Not valid gender!");
+            return;
+        }
         Character character = newCastle.findCharacter(name);
         if (character == null) {
-        newCastle.createCharacter(name, 100, 0, new Furniture[0]);
+        newCastle.createCharacter(name, gender, 100, 100, new Furniture[0]);
         System.out.println("\n\tYour character is created.");
         newCastle.serializeCharacters(newCastle.characters);
         } else {
