@@ -2,13 +2,11 @@ package com.codecool;
 
 import java.io.Serializable;
 
-public class Thing implements Serializable {
+class Thing implements Serializable {
 
-    //private static final long serialVersionUID = 1982579909381770716L;
+    String name;
 
-    protected String name;
-
-    protected Thing(String name) {
+    Thing(String name) {
         this.name = name;
     }
 

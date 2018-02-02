@@ -10,13 +10,13 @@ import java.util.Scanner;
 
 public class Castle {
 
-    public String name;
+    private String name;
     public Character[] characters;
     public Place[] places;
     public Character activeCharacter;
     public boolean winning;
 
-    public Castle(String name, Place[] places) {
+    private Castle(String name, Place[] places) {
         this.name = name;
         this.characters = new Character[0];
         this.places = places;
@@ -156,7 +156,7 @@ public class Castle {
         }
     }
 
-    public boolean contains(String[] items, String item) {
+    private boolean contains(String[] items, String item) {
         for (int i = 0; i < items.length; i++) {
             if (items[i].equals(item)) {
                 return true;

@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Place extends Thing {
 
-    public Furniture[] furniture;
+    private Furniture[] furniture;
 
-    public Place(String name, Furniture[] furniture) {
+    private Place(String name, Furniture[] furniture) {
         super(name);
         this.furniture = furniture;
     }
@@ -84,7 +84,7 @@ public class Place extends Thing {
     public Furniture[] addNewFurniture(Furniture[] furniture, Furniture newFurniture) {
         Furniture[] tempArray = new Furniture[furniture.length + 1];
         int counter = 0;
-        for(Furniture actualFurniture : furniture) {
+        for (Furniture actualFurniture : furniture) {
             tempArray[counter] = actualFurniture;
             counter++;
         }
@@ -100,7 +100,7 @@ public class Place extends Thing {
         this.furniture = furniture;
     }
 
-    public Furniture[] removeFurniture(Furniture[] furniture, int index){
+    public Furniture[] removeFurniture(Furniture[] furniture, int index) {
         Furniture[] tempArray = new Furniture[furniture.length - 1];
         int indexNum = 0;
         for (int i = 0; i < tempArray.length; i++) {

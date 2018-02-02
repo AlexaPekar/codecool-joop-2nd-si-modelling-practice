@@ -2,10 +2,10 @@ package com.codecool;
 
 public class Character extends Thing {
 
-    public Gender gender;
-    public int energy;
-    public int strength;
-    public Furniture[] stocks;
+    private Gender gender;
+    private int energy;
+    private int strength;
+    private Furniture[] stocks;
 
 
     public Character(String name, Gender gender, int energy, int strength, Furniture[] stocks) {
@@ -32,8 +32,7 @@ public class Character extends Thing {
         energy += value;
         if (energy > 100) {
             energy = 100;
-        }
-        else if (energy <= 0) {
+        } else if (energy <= 0) {
             System.out.println("\n\tYour character is too tired, cannot place the items to the right place, must stay in the castle forever!");
             System.exit(0);
         }
@@ -48,8 +47,7 @@ public class Character extends Thing {
         strength += value;
         if (strength > 100) {
             strength = 100;
-        }
-        else if (strength <= 0) {
+        } else if (strength <= 0) {
             System.out.println("\n\tYour character is too weak, cannot place the items to the right place, must stay in the castle forever!");
             System.exit(0);
         }
@@ -63,7 +61,7 @@ public class Character extends Thing {
     public void printStocks() {
         int counter = 0;
         for (Furniture stock : stocks) {
-            System.out.print("[" + counter + "]" +stock.getName() + "(" + stock.getWeight() + "kg)  ");
+            System.out.print("[" + counter + "]" + stock.getName() + "(" + stock.getWeight() + "kg)  ");
             counter++;
         }
     }
@@ -71,7 +69,7 @@ public class Character extends Thing {
     public void addNewStock(Furniture newFurniture) {
         Furniture[] tempArray = new Furniture[stocks.length + 1];
         int counter = 0;
-        for(Furniture actualStock : stocks) {
+        for (Furniture actualStock : stocks) {
             tempArray[counter] = actualStock;
             counter++;
         }
@@ -87,7 +85,7 @@ public class Character extends Thing {
         this.stocks = furniture;
     }
 
-    public Furniture[] removeStock(int index){
+    public Furniture[] removeStock(int index) {
         Furniture[] tempArray = new Furniture[stocks.length - 1];
         int indexNum = 0;
         for (int i = 0; i < tempArray.length; i++) {

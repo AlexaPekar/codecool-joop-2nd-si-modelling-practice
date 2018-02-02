@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.InputMismatchException;
 
-public class Main {
+class Main {
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -19,13 +19,12 @@ public class Main {
 
 
         //examine if there's saved game
-        if (g.exists()){
+        if (g.exists()) {
             newCastle.deserializePlaces();
         }
         if (f.exists()) {
             newCastle.deserializeCharacters();
         }
-        newCastle.checkWinning();
 
         clearScreen();
         System.out.println("\n\n\tWelcome to the furnishing simulation!");
@@ -37,6 +36,8 @@ public class Main {
         while (newCastle.winning == false) {
             clearScreen();
 
+            newCastle.checkWinning();
+
             if (newCastle.activeCharacter == null) {
                 System.out.println("\n\n\tPlease, choose a character to play with!\n");
             } else {
@@ -47,8 +48,9 @@ public class Main {
                 System.out.println("\n\tLibrary: [bookshelf] [desk] [table lamp] [armchair]");
                 System.out.println("\n\tLivingroom: [sofa] [fireplace] [piano] [coffe table]");
                 System.out.println("\n\tTraining Ground: [rope] [treadmill] [stationary bike] [wall bars]");
-                
+
                 System.out.println("\n\tName: " + newCastle.activeCharacter.getName());
+                System.out.println("\tGender: " + newCastle.activeCharacter.getGender());
                 System.out.println("\tEnergy: 100/" + newCastle.activeCharacter.getEnergy());
                 System.out.println("\tStrength: 100/" + newCastle.activeCharacter.getStrength());
                 System.out.print("\tStocks: ");
@@ -63,82 +65,73 @@ public class Main {
             System.out.println("\t(5) List places");
             System.out.println("\t(6) Pick up furniture(energy:-20|strength:-weight)");
             System.out.println("\t(7) Put down furniture(strength:+weight)");
-            System.out.println("\t(8) Heal character(energy:+30)");            
+            System.out.println("\t(8) Heal character(energy:+30)");
             System.out.println("\t(0) Exit");
             System.out.println("\n\tPlease, choose an option!");
             System.out.print("\t");
             String line = scanner.nextLine();
 
             String back;
-
-            switch(line) {
+            clearScreen();
+            switch (line) {
                 case "1":
-                clearScreen();
-                handleCreate(newCastle);
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    handleCreate(newCastle);
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "2":
-                clearScreen();
-                handleChooseCharacter(newCastle);
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    handleChooseCharacter(newCastle);
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "3":
-                clearScreen();
-                handleFind(newCastle);
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    handleFind(newCastle);
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "4":
-                clearScreen();
-                handleListCharacters(newCastle.getCharacters());
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    handleListCharacters(newCastle.getCharacters());
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "5":
-                clearScreen();
-                handleListPlaces(newCastle.getPlaces());
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    handleListPlaces(newCastle.getPlaces());
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "6":
-                clearScreen();
-                pickUpFurniture(newCastle);
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    pickUpFurniture(newCastle);
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "7":
-                clearScreen();
-                putDownFurniture(newCastle);
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    putDownFurniture(newCastle);
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "8":
-                clearScreen();
-                handleHeal(newCastle);
-                System.out.println("\n\tEnter any character to go back!");
-                System.out.print("\t");
-                back = scanner.next();
-                break;
+                    handleHeal(newCastle);
+                    System.out.println("\n\tEnter any character to go back!");
+                    System.out.print("\t");
+                    back = scanner.next();
+                    break;
                 case "0":
-                newCastle.quit();
-                break;
+                    newCastle.quit();
+                    break;
             }
         }
-        clearScreen();
         newCastle.quit();
     }
 
-    public static void clearScreen() {  
-        System.out.print("\033[H\033[2J");  
+    private static void clearScreen() {
+        System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
@@ -170,7 +163,7 @@ public class Main {
         } else {
             System.out.println("\n\n\tThese characters are in the castle: ");
             for (Character character : characters) {
-                System.out.print("\n\t\tName: " + character.getName() + "\tEnergy: " + character.getEnergy() + "\tStrength: " +character.getStrength() + "\tStocks: ");
+                System.out.print("\n\t\tName: " + character.getName() + "\tGender: " + character.getGender() + "\tEnergy: " + character.getEnergy() + "\tStrength: " + character.getStrength() + "\tStocks: ");
                 character.printStocks();
                 System.out.println();
             }
@@ -201,14 +194,14 @@ public class Main {
         try {
             gender = Gender.valueOf(genderAsString);
         } catch (IllegalArgumentException ex) {
-            System.out.println("Not valid gender!");
+            System.out.println("\n\tNot valid gender!");
             return;
         }
         Character character = newCastle.findCharacter(name);
         if (character == null) {
-        newCastle.createCharacter(name, gender, 100, 100, new Furniture[0]);
-        System.out.println("\n\tYour character is created.");
-        newCastle.serializeCharacters(newCastle.characters);
+            newCastle.createCharacter(name, gender, 100, 100, new Furniture[0]);
+            System.out.println("\n\tYour character is created.");
+            newCastle.serializeCharacters(newCastle.characters);
         } else {
             System.out.println("\n\tThis character is already in the castle.");
         }
@@ -222,7 +215,7 @@ public class Main {
         if (character == null) {
             System.out.println("\n\tThere's no such character in the castle!");
         } else {
-            System.out.print("\n\tThe given character is found!\n\tName: " + character.getName() + "\tEnergy: " + character.getEnergy() + "\tStrength: " + character.getStrength() + "\tStocks: ");
+            System.out.print("\n\tThe given character is found!\n\tName: " + character.getName() + "\tGender: " + character.getGender() + "\tEnergy: " + character.getEnergy() + "\tStrength: " + character.getStrength() + "\tStocks: ");
             character.printStocks();
             System.out.println();
         }
@@ -244,9 +237,10 @@ public class Main {
                 indexPlace = scanner.nextInt();
             } catch (InputMismatchException a) {
                 System.out.println("Invalid input!");
+                return;
             }
 
-            if (indexPlace < 0 || indexPlace > newCastle.getPlaces().length-1) {
+            if (indexPlace < 0 || indexPlace > newCastle.getPlaces().length - 1) {
                 System.out.println("\n\tInvalid input!");
 
             } else {
@@ -261,17 +255,17 @@ public class Main {
                 actualPlaces[indexPlace].printFurniture();
                 System.out.println();
                 System.out.print("\t");
-                
+
                 try {
                     indexFurniture = scanner.nextInt();
                 } catch (InputMismatchException a) {
                     System.out.println("Invalid input!");
                 }
 
-                if (indexFurniture < 0 || indexFurniture > actualPlaces[indexPlace].getFurniture().length-1) {
+                if (indexFurniture < 0 || indexFurniture > actualPlaces[indexPlace].getFurniture().length - 1) {
                     System.out.println("\n\tInvalid input!");
-                
-                } else { 
+
+                } else {
 
                     Furniture[] newFurniture = actualPlaces[indexPlace].removeFurniture(actualFurniture, indexFurniture);
                     actualPlaces[indexPlace].setFurniture(newFurniture);
@@ -279,12 +273,6 @@ public class Main {
                     Furniture pickedUpFurniture = actualPlaces[indexPlace].getFurniture(actualFurniture, indexFurniture);
 
                     newCastle.activeCharacter.addNewStock(pickedUpFurniture);
-
-                    //stocks of character
-                    Furniture[] stocks = newCastle.activeCharacter.getStocks();
-                    for (Furniture stock:stocks) {
-                        stock.getName();
-                    }
 
                     newCastle.activeCharacter.setEnergy(-20);
                     newCastle.activeCharacter.setStrength(0 - pickedUpFurniture.getWeight());
@@ -302,7 +290,7 @@ public class Main {
             System.out.println("\n\n\tPlease, choose a character you wanna play with before putting down furniture!");
         } else {
             System.out.println("\n\n\tYou wanna put down a furniture with character " + newCastle.activeCharacter.getName() + ".");
-            
+
             System.out.println("\n\tEnter the index of the furniture you wanna put down!");
             System.out.println("\n\tFurniture in your stock: ");
             System.out.print("\t");
@@ -310,29 +298,30 @@ public class Main {
             System.out.println();
             System.out.print("\t");
 
-            try{
+            try {
                 indexFurniture = scanner.nextInt();
             } catch (InputMismatchException a) {
                 System.out.println("Invalid input!");
+                return;
             }
-            
-            if (indexFurniture < 0 || indexFurniture > newCastle.activeCharacter.getStocks().length-1) {
+
+            if (indexFurniture < 0 || indexFurniture > newCastle.activeCharacter.getStocks().length - 1) {
                 System.out.println("\n\tInvalid input!");
-            
-            } else { 
-            
+
+            } else {
+
                 System.out.println("\n\tEnter the index of the place you wanna put down the furniture!");
                 newCastle.printPlaces();
                 System.out.println();
                 System.out.print("\t");
 
-                try{
+                try {
                     indexPlace = scanner.nextInt();
                 } catch (InputMismatchException a) {
                     System.out.println("Invalid input!");
                 }
 
-                if (indexPlace < 0 || indexPlace > newCastle.getPlaces().length-1) {
+                if (indexPlace < 0 || indexPlace > newCastle.getPlaces().length - 1) {
                     System.out.println("\n\tInvalid input!");
 
                 } else {
@@ -349,7 +338,7 @@ public class Main {
                     Place[] actualPlaces = newCastle.getPlaces();
 
                     Furniture[] actualFurniture = actualPlaces[indexPlace].getFurniture();
-                    
+
                     Furniture[] newFurniture = actualPlaces[indexPlace].addNewFurniture(actualFurniture, putDownFurniture);
                     actualPlaces[indexPlace].setFurniture(newFurniture);
 

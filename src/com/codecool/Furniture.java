@@ -2,7 +2,7 @@ package com.codecool;
 
 public class Furniture extends Thing { //abstract
 
-    int weight;
+    private int weight;
 
     public Furniture(String name, int weight) {
         super(name);
